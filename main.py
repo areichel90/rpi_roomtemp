@@ -3,10 +3,11 @@ import temp_utils, time, threading, sys, os
 
 
 def runMeasurement(sample_rate, out_path):
+    ''' '''
     # configure method to be called at frequency equal to sample_rate
     print("\n")
     test_meas = temp_utils.measurement()
-    test_meas.test = threading.Timer(sample_rate, measureTemperature, args=(sample_rate,out_path)).start()
+    test_meas.test = threading.Timer(sample_rate, temp_utils.takeMeasurement, args=(sample_rate,out_path)).start()
 
     # perform measurement and store information in new class obj
     new_reading = 10.0  # TODO: sample from sensor here - should this be written into class?
@@ -30,6 +31,6 @@ if __name__ == "__main__":
     out_path = os.path.join(__file__, fn)
 
     ''' periodically, take sensor measurement and write it to file '''
-    sample_rate = 1.0  # sec
+    sample_rate = 10.0  # sec
     temp_meas = runMeasurement(sample_rate, out_path)
 
